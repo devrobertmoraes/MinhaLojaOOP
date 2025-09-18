@@ -1,4 +1,6 @@
-﻿namespace MinhaLojaOOP
+﻿using MinhaLojaOOP.Entidades;
+
+namespace MinhaLojaOOP
 {
     public class Program
     {
@@ -46,36 +48,6 @@
             Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal}");
 
             Console.WriteLine("Processamento finalizado.");
-        }
-
-        public class Cliente
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            public string Email { get; set; }
-        }
-
-        public class Produto
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            public decimal Preco { get; set; }
-        }
-
-        public class ItemDoPedido
-        {
-            public Produto Produto { get; set; }
-            public int Quantidade { get; set; }
-            public decimal PrecoUnitario { get; set; } 
-        }
-
-        public class Pedido
-        {
-            public int Id { get; set; }
-            public Cliente Cliente { get; set; }
-            public DateTime DataDoPedido { get; set; }
-            public List<ItemDoPedido> Itens { get; set; }
-            public decimal ValorTotal { get; set; }
         }
     }
 }
