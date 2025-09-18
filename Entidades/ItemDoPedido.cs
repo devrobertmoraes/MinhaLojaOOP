@@ -8,8 +8,24 @@ namespace MinhaLojaOOP.Entidades
 {
     public class ItemDoPedido
     {
-        public Produto Produto { get; set; }
-        public int Quantidade { get; set; }
-        public decimal PrecoUnitario { get; set; }
+        public Produto Produto { get; private set; }
+        public int Quantidade { get; private set; }
+        public decimal PrecoUnitario { get; private set; }
+        public decimal Subtotal
+        {
+            get { return Quantidade * PrecoUnitario;  }
+        }
+
+        public ItemDoPedido(Produto produto, int quantidade)
+        {
+            if (quantidade <= 0)
+            {
+                throw new ArgumentException("A quantidade deve ser maior que zero.");
+            }
+
+            Produto = produto;
+            Quantidade = quantidade;
+            PrecoUnitario = produto.Preco;
+        }
     }
 }

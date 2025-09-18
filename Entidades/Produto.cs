@@ -8,8 +8,20 @@ namespace MinhaLojaOOP.Entidades
 {
     public class Produto
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public decimal Preco { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public decimal Preco { get; private set; }
+
+        public Produto(int id, string nome, decimal preco)
+        {
+            if (preco <= 0)
+            {
+                throw new ArgumentException("O preço do produto deve ser maior que zero.");
+            }
+
+            Id = id;
+            Nome = nome;
+            Preco = preco;
+        }
     }
 }

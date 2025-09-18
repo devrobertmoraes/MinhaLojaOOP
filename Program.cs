@@ -8,46 +8,34 @@ namespace MinhaLojaOOP
         {
             Console.WriteLine("Iniciando processamento de pedido...");
 
-            var cliente = new Cliente { Id = 1, Nome = "João Silva", Email = "joao@email.com" };
-            var produto1 = new Produto { Id = 101, Nome = "Teclado Mecânico", Preco = 350.50m };
-            var produto2 = new Produto { Id = 102, Nome = "Mouse Gamer", Preco = 120.00m };
-
-            // criacao do pedido
-            var pedido = new Pedido
+            try
             {
-                Id = 1,
-                Cliente = cliente,
-                DataDoPedido = DateTime.Now,
-                Itens = new List<ItemDoPedido>()
-            };
+                var cliente = new Cliente(1, "João Silva", "joao@email.com");
+                var produto1 = new Produto(101, "Teclado Mecânico", 350.50m);
+                var produto2 = new Produto(102, "Mouse Gamer", 120.00m);
 
-            // inserção de ítens no pedido
-            var item1 = new ItemDoPedido { Produto = produto1, Quantidade = 1, PrecoUnitario = produto1.Preco };
-            var item2 = new ItemDoPedido { Produto = produto2, Quantidade = 2, PrecoUnitario = produto2.Preco };
-            pedido.Itens.Add(item1);
-            pedido.Itens.Add(item2);
+                var pedido = new Pedido(1, cliente);
 
-            // calcular total do pedido
-            decimal total = 0;
+                pedido.AdicionarItem(produto1, 1);
+                pedido.AdicionarItem(produto2, 2);
 
-            foreach (var item in pedido.Itens)
-            {
-                total += item.PrecoUnitario * item.Quantidade;
+                Console.WriteLine($"Pedido Nº: {pedido.Id}");
+                Console.WriteLine($"Cliente: {pedido.Cliente.Nome}");
+                Console.WriteLine("Itens:");
+
+                foreach (var item in pedido.Itens)
+                {
+                    Console.WriteLine($"- {item.Produto.Nome} | Qtd: {item.Quantidade} | Preço Unit.: R$ {item.PrecoUnitario}");
+                }
+
+                Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal}");
+
+                Console.WriteLine("Processamento finalizado.");
             }
-
-            pedido.ValorTotal = total;
-
-            // exibição do resultado
-            Console.WriteLine($"Pedido Nº: {pedido.Id}");
-            Console.WriteLine($"Cliente: {pedido.Cliente.Nome}");
-            Console.WriteLine("Itens:");
-            foreach (var item in pedido.Itens)
+            catch (ArgumentException ex)
             {
-                Console.WriteLine($"- {item.Produto.Nome} | Qtd: {item.Quantidade} | Preço Unit.: R$ {item.PrecoUnitario}");
+                Console.WriteLine($"Erro ao processar o pedido: {ex.Message}");
             }
-            Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal}");
-
-            Console.WriteLine("Processamento finalizado.");
         }
     }
 }
