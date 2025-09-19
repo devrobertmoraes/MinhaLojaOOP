@@ -8,7 +8,8 @@ namespace MinhaLojaOOP.Entidades
 {
     public class Pedido
     {
-        public int Id { get; private set; }
+        private static int _proximoNumeroSequencial = 1;
+        public string Id { get; private set; }
         public Cliente Cliente { get; private set; }
         public DateTime DataDoPedido { get; private set; }
         public decimal ValorTotal { get; private set; }
@@ -16,9 +17,9 @@ namespace MinhaLojaOOP.Entidades
         private readonly List<ItemDoPedido> _itens = new List<ItemDoPedido>();
         public IReadOnlyCollection<ItemDoPedido> Itens => _itens.AsReadOnly();
 
-        public Pedido(int id, Cliente cliente)
+        public Pedido(Cliente cliente)
         {
-            Id = id;
+            Id = GerarNovoId();
             Cliente = cliente;
             DataDoPedido = DateTime.Now;
         }
@@ -40,6 +41,14 @@ namespace MinhaLojaOOP.Entidades
         private void CalcularValorTotal()
         {
             ValorTotal = _itens.Sum(item => item.Subtotal);
+        }
+
+        private static string GerarNovoId()
+        {
+            string ano = DateTime.Now.Year.ToString();
+            string sequencial = _proximoNumeroSequencial.ToString("D4");
+            _proximoNumeroSequencial++;
+            return $"ORD-{ano}-{sequencial}";
         }
     }
 }

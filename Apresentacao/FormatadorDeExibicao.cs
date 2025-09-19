@@ -1,0 +1,34 @@
+﻿using MinhaLojaOOP.Entidades;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MinhaLojaOOP.Apresentacao
+{
+    public class FormatadorDeExibicao
+    {
+        public static void ExibirDetalhesDoPedido(Pedido pedido)
+        {
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine($"Detalhes do Pedido Nº: {pedido.Id}");
+            Console.WriteLine($"Data: {pedido.DataDoPedido:dd/MM/yyyy HH:mm:ss}");
+            Console.WriteLine($"Cliente: {pedido.Cliente.Nome} ({pedido.Cliente.Email})");
+            Console.WriteLine("Itens:");
+            if (pedido.Itens.Count == 0)
+            {
+                Console.WriteLine("- Pedido vazio.");
+            }
+            else
+            {
+                foreach (var item in pedido.Itens)
+                {
+                    Console.WriteLine($"- {item.Produto.Nome} | Qtd: {item.Quantidade} | Preço Unit.: R$ {item.PrecoUnitario:F2} | Subtotal: R$ {item.Subtotal:F2}");
+                }
+            }
+            Console.WriteLine($"VALOR TOTAL DO PEDIDO: R$ {pedido.ValorTotal:F2}");
+            Console.WriteLine("------------------------------------------");
+        }
+    }
+}
