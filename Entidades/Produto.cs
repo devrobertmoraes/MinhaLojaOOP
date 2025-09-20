@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MinhaLojaOOP.Entidades
 {
-    public class Produto
+    public abstract class Produto
     {
         public int Id { get; private set; }
         public string Nome { get; private set; }
         public decimal Preco { get; private set; }
 
-        public Produto(int id, string nome, decimal preco)
+        protected Produto(int id, string nome, decimal preco)
         {
             if (preco <= 0)
             {
@@ -23,5 +23,7 @@ namespace MinhaLojaOOP.Entidades
             Nome = nome;
             Preco = preco;
         }
+
+        public abstract decimal CalcularCustoEnvio();
     }
 }

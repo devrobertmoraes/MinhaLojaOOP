@@ -12,9 +12,9 @@ namespace MinhaLojaOOP
             try
             {
                 var cliente = new Cliente(1, "João Silva", "joao@email.com");
-                var produto1 = new Produto(101, "Teclado Mecânico", 350.50m);
-                var produto2 = new Produto(102, "Mouse Gamer", 120.00m);
-                var produto3 = new Produto(201, "Monitor 27 polegadas", 1850.00m);
+                var produto1 = new ProdutoFisico(101, "Teclado Mecânico", 350.50m, 1.2m);
+                var produto2 = new ProdutoFisico(102, "Mouse Gamer", 120.00m, 0.3m);
+                var produto3 = new ProdutoDigital(201, "Monitor 27 polegadas", 1850.00m, "http://...");
 
                 var pedido1 = new Pedido(cliente);
 

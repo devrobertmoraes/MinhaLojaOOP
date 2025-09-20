@@ -9,9 +9,12 @@ namespace MinhaLojaOOP.Entidades
     public class Pedido
     {
         private static int _proximoNumeroSequencial = 1;
+
         public string Id { get; private set; }
         public Cliente Cliente { get; private set; }
         public DateTime DataDoPedido { get; private set; }
+        public decimal ValorItens { get; private set; }
+        public decimal CustoEnvio { get; private set; }
         public decimal ValorTotal { get; private set; }
 
         private readonly List<ItemDoPedido> _itens = new List<ItemDoPedido>();
@@ -35,12 +38,16 @@ namespace MinhaLojaOOP.Entidades
             var novoItem = new ItemDoPedido(produto, quantidade);
             _itens.Add(novoItem);
 
-            CalcularValorTotal();
+            CalcularTotais();
         }
 
-        private void CalcularValorTotal()
+        private void CalcularTotais()
         {
-            ValorTotal = _itens.Sum(item => item.Subtotal);
+            ValorItens = _itens.Sum(item => item.Subtotal);
+
+            CustoEnvio = _itens.Sum(item => item.Produto.CalcularCustoEnvio() * item.Quantidade);
+
+            ValorTotal = ValorItens + CustoEnvio;
         }
 
         private static string GerarNovoId()
