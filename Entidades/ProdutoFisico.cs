@@ -9,10 +9,12 @@ namespace MinhaLojaOOP.Entidades
     public class ProdutoFisico : Produto
     {
         public decimal PesoEmKg { get; private set; }
+        public Dimensoes Dimensoes { get; private set; }
 
-        public ProdutoFisico(int id, string nome, decimal preco, decimal pesoEmKg) : base(id, nome, preco) 
+        public ProdutoFisico(int id, string nome, decimal preco, decimal pesoEmKg, Dimensoes dimensoes) : base(id, nome, preco)
         {
             PesoEmKg = pesoEmKg;
+            Dimensoes = dimensoes;
         }
 
         public override decimal CalcularCustoEnvio()

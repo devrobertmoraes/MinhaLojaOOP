@@ -14,6 +14,8 @@ namespace MinhaLojaOOP.Entidades
         public string Id { get; private set; }
         public Cliente Cliente { get; private set; }
         public DateTime DataDoPedido { get; private set; }
+        public Endereco EnderecoDeEntrega { get; private set; }
+
         public decimal ValorItens { get; private set; }
         public decimal CustoEnvio { get; private set; }
         public decimal ValorDescontos { get; private set; }
@@ -24,11 +26,12 @@ namespace MinhaLojaOOP.Entidades
 
         public IReadOnlyCollection<ItemDoPedido> Itens => _itens.AsReadOnly();
 
-        public Pedido(Cliente cliente)
+        public Pedido(Cliente cliente, Endereco enderecoDeEntrega)
         {
             Id = GerarNovoId();
             Cliente = cliente;
             DataDoPedido = DateTime.Now;
+            EnderecoDeEntrega = enderecoDeEntrega;
         }
 
         public void AdicionarDesconto(IDesconto desconto)

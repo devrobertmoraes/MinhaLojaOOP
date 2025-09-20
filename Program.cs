@@ -13,14 +13,20 @@ namespace MinhaLojaOOP
             try
             {
                 var cliente = new Cliente(1, "João Silva", "joao@email.com");
-                var produtoFisico = new ProdutoFisico(101, "Teclado Mecânico", 350.50m, 1.2m);
+
+                var dimensoesTeclado = new Dimensoes(45, 15, 4);
+                var enderecoCliente = new Endereco("Rua das Flores", "123", "São Paulo", "SP", "01234-567");
+
+                var produtoFisico = new ProdutoFisico(101, "Teclado Mecânico", 350.50m, 1.2m, dimensoesTeclado);
                 var produtoDigital = new ProdutoDigital(201, "Monitor 27 polegadas", 1850.00m, "http://...");
 
                 Console.WriteLine("\nProcessando pedido com descontos...");
 
-                var pedido = new Pedido(cliente);
+                var pedido = new Pedido(cliente, enderecoCliente);
                 pedido.AdicionarItem(produtoFisico, 1);
                 pedido.AdicionarItem(produtoDigital, 2);
+
+                var enderecoCorrigido = enderecoCliente with { Cep = "01234-999" };
 
                 var politicaDeDesconto1 = new DescontoPrimeiraCompra();
                 var politicaDeDesconto2 = new DescontoPorCupom("PROMO15");

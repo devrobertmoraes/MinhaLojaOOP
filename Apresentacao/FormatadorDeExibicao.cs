@@ -15,6 +15,7 @@ namespace MinhaLojaOOP.Apresentacao
             Console.WriteLine($"Detalhes do Pedido Nº: {pedido.Id}");
             Console.WriteLine($"Data: {pedido.DataDoPedido:dd/MM/yyyy HH:mm:ss}");
             Console.WriteLine($"Cliente: {pedido.Cliente.Nome} ({pedido.Cliente.Email})");
+            Console.WriteLine($"Endereço de Entrega: {pedido.EnderecoDeEntrega.Logradouro}, {pedido.EnderecoDeEntrega.Numero} - {pedido.EnderecoDeEntrega.Cidade}/{pedido.EnderecoDeEntrega.Estado} - CEP: {pedido.EnderecoDeEntrega.Cep}");
             Console.WriteLine("Itens:");
             if (pedido.Itens.Count == 0)
             {
