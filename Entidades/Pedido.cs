@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinhaLojaOOP.Servicos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,12 @@ namespace MinhaLojaOOP.Entidades
         public DateTime DataDoPedido { get; private set; }
         public decimal ValorItens { get; private set; }
         public decimal CustoEnvio { get; private set; }
+        public decimal ValorDescontos { get; private set; }
         public decimal ValorTotal { get; private set; }
 
         private readonly List<ItemDoPedido> _itens = new List<ItemDoPedido>();
+        private readonly List<IDesconto> _descontosAplicados = new List<IDesconto>();
+
         public IReadOnlyCollection<ItemDoPedido> Itens => _itens.AsReadOnly();
 
         public Pedido(Cliente cliente)
@@ -25,6 +29,12 @@ namespace MinhaLojaOOP.Entidades
             Id = GerarNovoId();
             Cliente = cliente;
             DataDoPedido = DateTime.Now;
+        }
+
+        public void AdicionarDesconto(IDesconto desconto)
+        {
+            _descontosAplicados.Add(desconto);
+            CalcularTotais();
         }
 
         public void AdicionarItem(Produto produto, int quantidade)
@@ -47,7 +57,9 @@ namespace MinhaLojaOOP.Entidades
 
             CustoEnvio = _itens.Sum(item => item.Produto.CalcularCustoEnvio() * item.Quantidade);
 
-            ValorTotal = ValorItens + CustoEnvio;
+            ValorDescontos = _descontosAplicados.Sum(desconto => desconto.Aplicar(ValorItens));
+
+            ValorTotal = ValorItens + CustoEnvio - ValorDescontos;
         }
 
         private static string GerarNovoId()

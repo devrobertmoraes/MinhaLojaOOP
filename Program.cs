@@ -1,5 +1,6 @@
 ﻿using MinhaLojaOOP.Apresentacao;
 using MinhaLojaOOP.Entidades;
+using MinhaLojaOOP.Servicos;
 
 namespace MinhaLojaOOP
 {
@@ -12,21 +13,24 @@ namespace MinhaLojaOOP
             try
             {
                 var cliente = new Cliente(1, "João Silva", "joao@email.com");
-                var produto1 = new ProdutoFisico(101, "Teclado Mecânico", 350.50m, 1.2m);
-                var produto2 = new ProdutoFisico(102, "Mouse Gamer", 120.00m, 0.3m);
-                var produto3 = new ProdutoDigital(201, "Monitor 27 polegadas", 1850.00m, "http://...");
+                var produtoFisico = new ProdutoFisico(101, "Teclado Mecânico", 350.50m, 1.2m);
+                var produtoDigital = new ProdutoDigital(201, "Monitor 27 polegadas", 1850.00m, "http://...");
 
-                var pedido1 = new Pedido(cliente);
+                Console.WriteLine("\nProcessando pedido com descontos...");
 
-                Console.WriteLine("\nProcessando primeiro pedido...");
-                pedido1.AdicionarItem(produto1, 1);
-                pedido1.AdicionarItem(produto2, 2);
-                FormatadorDeExibicao.ExibirDetalhesDoPedido(pedido1);
+                var pedido = new Pedido(cliente);
+                pedido.AdicionarItem(produtoFisico, 1);
+                pedido.AdicionarItem(produtoDigital, 2);
 
-                Console.WriteLine("\nProcessando segundo pedido...");
-                var pedido2 = new Pedido(cliente);
-                pedido2.AdicionarItem(produto3, 1);
-                FormatadorDeExibicao.ExibirDetalhesDoPedido(pedido2);
+                var politicaDeDesconto1 = new DescontoPrimeiraCompra();
+                var politicaDeDesconto2 = new DescontoPorCupom("PROMO15");
+                var politicaDeDesconto3 = new DescontoPorCupom("CUPOMINVALIDO");
+
+                pedido.AdicionarDesconto(politicaDeDesconto1);
+                pedido.AdicionarDesconto(politicaDeDesconto2);
+                pedido.AdicionarDesconto(politicaDeDesconto3);
+
+                FormatadorDeExibicao.ExibirDetalhesDoPedido(pedido);
             }
             catch (ArgumentException ex)
             {

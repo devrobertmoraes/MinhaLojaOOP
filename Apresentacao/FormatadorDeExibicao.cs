@@ -36,6 +36,7 @@ namespace MinhaLojaOOP.Apresentacao
             }
             Console.WriteLine($"Subtotal dos Itens: R$ {pedido.ValorItens:F2}");
             Console.WriteLine($"Custo de Envio: R$ {pedido.CustoEnvio:F2}");
+            Console.WriteLine($"Total em Descontos: R$ {pedido.ValorDescontos:F2}");
             Console.WriteLine($"VALOR TOTAL DO PEDIDO: R$ {pedido.ValorTotal:F2}");
             Console.WriteLine("------------------------------------------");
         }
